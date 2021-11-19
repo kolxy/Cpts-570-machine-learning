@@ -71,6 +71,7 @@ def buildMatrix(wordList, dictList):
                 vec[dictList.index(word)] = 1
         result.append(vec)
     
+    # use numpy matrix for faster access later
     return np.array(result)
 
 def predict(target, dictList, wordMatrix, labels):
