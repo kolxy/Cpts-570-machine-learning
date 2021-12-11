@@ -1,6 +1,7 @@
 import enum
 import numpy as np
 import random
+import math
 
 class TYPE(enum.Enum):
     cell = 0
@@ -41,11 +42,20 @@ class Grid:
         if np.random.random() < epsilon:
             maxValue = max(self.Q.values())
             keys = [key for key, value in self.Q.items() if value == maxValue]
-            choice = random.choice(keys)
-            return choice
+            action = random.choice(keys)
+            return action
         else:
             action = random.choice(ACTION.list())
             return action
+
+    def get_action_boltzmann(self, temperature):
+        action_list = ACTION.list()
+        weights = []
+        # Denomeninator removed since it's constant for all actions
+        for action in action_list:
+            weights.append(int(math.exp(self.Q[action]/temperature) * 100))
+        selected = random.choices(action_list, weights, k=1)
+        return selected[0]
 
     # Get max Q-value or reward
     def max_Q(self):
@@ -129,7 +139,7 @@ class GridWorld:
                         val = ">"
 
                 res = res + " | " + val
-            res = res + " |\n\n"
+            res = res + " |\n"
         print(res)
 
     def __str__(self):

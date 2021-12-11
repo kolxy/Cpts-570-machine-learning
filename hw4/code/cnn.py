@@ -26,7 +26,7 @@ def main():
               metrics=['accuracy'])
 
     history = model.fit(x_train, y_train, epochs=10, 
-                    validation_data=(x_train, y_train))
+                    validation_data=(x_test, y_test))
 
     plt.figure()
     plt.plot(history.history['accuracy'], "-d", label="training accuracy")
