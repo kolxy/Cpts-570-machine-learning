@@ -106,17 +106,28 @@ class GridWorld:
         
         return state
 
-    def print_shape(self):
+    def print_shape(self, empty = True):
         res = ""
         for x in range(self.width):
             for y in range(self.height):
                 val = " "
                 if self.matrix[y][x].type == TYPE.wall:
                     val = "X"
-                if self.matrix[y][x].reward < 0:
+                elif self.matrix[y][x].reward < 0:
                     val = "-"
-                if self.matrix[y][x].reward > 0:
-                    val = "+"
+                elif self.matrix[y][x].reward > 0:
+                    val = "G"
+                elif not empty:
+                    action = self.matrix[y][x].get_action_epsilon(1)
+                    if action == ACTION.up:
+                        val = "^"
+                    elif action == ACTION.down:
+                        val = "v"
+                    elif action == ACTION.left:
+                        val = "<"
+                    elif action == ACTION.right:
+                        val = ">"
+
                 res = res + " | " + val
             res = res + " |\n\n"
         print(res)

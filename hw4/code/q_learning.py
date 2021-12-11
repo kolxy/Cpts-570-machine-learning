@@ -5,8 +5,8 @@ ALPHA = 0.01 # learning rate
 BETA = 0.9 # discount factor
 def main():
     world = GridWorld()
-    world.print_shape()
     epsilon = 0.2
+    world.print_shape(empty = True)
 
     for t in range(10000):
         x, y = 0, 0
@@ -31,6 +31,8 @@ def main():
     print("\n============================ Path ==============================\n")
     for s in path:
         print(s)
+
+    world.print_shape(empty = False)
 
 def get_path(world: GridWorld):
     path = []
