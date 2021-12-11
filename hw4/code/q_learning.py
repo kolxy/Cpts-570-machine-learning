@@ -103,7 +103,7 @@ def run_boltzmann_policy(world: GridWorld, temperature):
         if iteration % 10000 == 0:
             print(iteration)
         
-        temp += 0.9
+        temp *= 0.9
     
     print(f"Temperature: {temperature}, Iteration: {iteration}")
     return
